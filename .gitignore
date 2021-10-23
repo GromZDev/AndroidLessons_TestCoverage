@@ -21,4 +21,5 @@ misc.xml
 /.idea/gradle.xml
 /gradle.xml
 gradle.xml
+vcs.xml
 /.idea/modules/jarRepositories.xml
