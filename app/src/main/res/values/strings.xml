@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">My Tests</string>
-    <string name="email_label">Your Email address:</string>
-    <string name="save">Save</string>
-    <string name="email_hint">Enter your Email</string>
-    <string name="invalid_email">Invalid email</string>
-    <string name="valid_email">OK</string>
+    <string name="app_name">My Movies</string>
+    <string name="film_image">Film Image</string>
+    <string name="year">Год:</string>
+    <string name="min">мин</string>
+    <string name="rating">Оценка:</string>
+    <string name="film_rating_image">Film Rating Image</string>
+    <string name="film_year_icon">Film Year Icon</string>
 </resources>

@@ -1,4 +1,11 @@
 <resources>
-    <dimen name="activity_padding">16dp</dimen>
-    <dimen name="main_margin">20dp</dimen>
+
+    <dimen name="filmNameDescFragmentSize">28sp</dimen>
+    <dimen name="filmAttributesDescFragmentSize">24sp</dimen>
+
+    <dimen name="attributesFilmIconsSize">36dp</dimen>
+    <dimen name="attributesFilmIconsMarginDescriptionFragment">20dp</dimen>
+
+    <dimen name="attributesTextFilmLayoutHeight">28dp</dimen>
+
 </resources>
