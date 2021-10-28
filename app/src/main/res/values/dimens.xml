@@ -1,11 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <dimen name="filmNameDescFragmentSize">28sp</dimen>
-    <dimen name="filmAttributesDescFragmentSize">24sp</dimen>
-
-    <dimen name="attributesFilmIconsSize">36dp</dimen>
-    <dimen name="attributesFilmIconsMarginDescriptionFragment">20dp</dimen>
-
-    <dimen name="attributesTextFilmLayoutHeight">28dp</dimen>
-
+    <dimen name="list_item_padding">16dp</dimen>
+    <dimen name="margin">16dp</dimen>
 </resources>

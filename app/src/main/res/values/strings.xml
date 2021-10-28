@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">My Movies</string>
-    <string name="film_image">Film Image</string>
-    <string name="year">Год:</string>
-    <string name="min">мин</string>
-    <string name="rating">Оценка:</string>
-    <string name="film_rating_image">Film Rating Image</string>
-    <string name="film_year_icon">Film Year Icon</string>
+    <string name="app_name">Tests</string>
+    <string name="repo_full_name">repo full name</string>
+    <string name="search_hint">Enter keyword e.g. android</string>
+    <string name="enter_search_word">Enter search word</string>
+    <string name="results_count">Number of results: %d</string>
+    <string name="undefined_error">Undefined error</string>
+    <string name="decrement_text">-</string>
+    <string name="increment_text">+</string>
+    <string name="to_details">to details</string>
 </resources>
