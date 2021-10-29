@@ -12,10 +12,21 @@ import java.util.*
 
 class DetailsActivity : AppCompatActivity(), ViewDetailsContract {
 
-    private val presenter: PresenterDetailsContract = DetailsPresenter(this)
+    private val presenter: PresenterDetailsContract = DetailsPresenter()
 
     private var _binding: ActivityDetailsBinding? = null
     private val binding get() = _binding!!
+
+    /** В методах жиз. цикла onStart и onStop имплементим методы презентера :*/
+    override fun onStart() {
+        presenter.onAttach(this)
+        super.onStart()
+    }
+
+    override fun onStop() {
+        presenter.onDetach(this)
+        super.onStop()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
