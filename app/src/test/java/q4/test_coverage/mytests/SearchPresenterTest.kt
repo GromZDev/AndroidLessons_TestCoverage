@@ -1,16 +1,17 @@
 package q4.test_coverage.mytests
 
-import q4.test_coverage.mytests.model.SearchResponse
-import q4.test_coverage.mytests.model.SearchResult
-import q4.test_coverage.mytests.presenter.search.SearchPresenter
-import q4.test_coverage.mytests.repository.GitHubRepository
-import q4.test_coverage.mytests.view.search.ViewSearchContract
+import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
+import q4.test_coverage.mytests.model.SearchResponse
+import q4.test_coverage.mytests.model.SearchResult
+import q4.test_coverage.mytests.presenter.search.SearchPresenter
+import q4.test_coverage.mytests.repository.GitHubRepository
+import q4.test_coverage.mytests.view.search.ViewSearchContract
 import retrofit2.Response
 
 //Тестируем наш Презентер
@@ -30,7 +31,30 @@ class SearchPresenterTest {
         //Раньше было @RunWith(MockitoJUnitRunner.class) в аннотации к самому классу (SearchPresenterTest)
         MockitoAnnotations.initMocks(this)
         //Создаем Презентер, используя моки Репозитория и Вью, проинициализированные строкой выше
-        presenter = SearchPresenter(viewContract, repository)
+        presenter = SearchPresenter(repository)
+        presenter.onAttach(viewContract)
+    }
+
+    /** Тестируем методы onAttach и onDetach.
+     * Но после каждого теста отцепляем viewContract
+     * */
+    @After
+    fun onDetach_ViewContract() {
+        presenter.onDetach(viewContract)
+    }
+
+    @Test
+    fun onAttach_View_Test() {
+        presenter.searchGitHub("some")
+        verify(viewContract).displayLoading(true)
+    }
+
+    @Test
+    fun onDetach_View_Test() {
+        /** Проверяем, чтобы не было с вьюхой никаких действий */
+        presenter.onDetach(viewContract)
+        presenter.searchGitHub("some")
+        verify(viewContract, times(0)).displayLoading(true)
     }
 
     @Test //Проверим вызов метода searchGitHub() у нашего Репозитория
@@ -44,6 +68,7 @@ class SearchPresenterTest {
 
     @Test //Проверяем работу метода handleGitHubError()
     fun handleGitHubError_Test() {
+        //viewContract = mock(ViewContract::class.java) as ViewSearchContract
         //Вызываем у Презентера метод handleGitHubError()
         presenter.handleGitHubError()
         //Проверяем, что у viewContract вызывается метод displayError()

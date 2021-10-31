@@ -23,8 +23,19 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
     private val binding get() = _binding!!
 
     private val adapter = SearchResultAdapter()
-    private val presenter: PresenterSearchContract = SearchPresenter(this, createRepository())
+    private val presenter: PresenterSearchContract = SearchPresenter(createRepository())
     private var totalCount: Int = 0
+
+    /** В методах жиз. цикла onStart и onStop имплементим методы презентера :*/
+    override fun onStart() {
+        presenter.onAttach(this)
+        super.onStart()
+    }
+
+    override fun onStop() {
+        presenter.onDetach(this)
+        super.onStop()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
