@@ -1,6 +1,5 @@
 package q4.test_coverage.mytests.presenter.search
 
-import android.util.Log
 import q4.test_coverage.mytests.model.SearchResponse
 import q4.test_coverage.mytests.repository.GitHubRepository
 import q4.test_coverage.mytests.repository.GitHubRepository.GitHubRepositoryCallback
@@ -29,20 +28,23 @@ internal class SearchPresenter internal constructor(
         repository.searchGithub(searchQuery, this)
     }
 
+    /** Скрываю логирование, т.к. в тестах они не проходят */
     override fun onAttach(viewContract: ViewContract) {
         if (viewContract != this.viewContract) {
             this.viewContract = viewContract as ViewSearchContract
-            Log.d(tag, "$viewContract -> View прицепилась <<<<<<<<<<<<<<<<<<<<")
-        } else
-            Log.d(tag, "View прицепилась как новая <<<<<<<<<<<<<<")
+            //   Log.d(tag, "$viewContract -> View прицепилась <<<<<<<<<<<<<<<<<<<<")
+            // } else
+            //   Log.d(tag, "View прицепилась как новая <<<<<<<<<<<<<<")
+        }
     }
 
     override fun onDetach(viewContract: ViewContract) {
         if (viewContract as ViewSearchContract == this.viewContract) {
             this.viewContract = null
-            Log.d(tag, "$viewContract -> View обнулилась <<<<<<<<<<<<<<<<<<<<")
-        } else
-            Log.d(tag, "$viewContract -> View НЕ обнулилась <<<<<<<<<<<<<<<<<<<<")
+            //  Log.d(tag, "$viewContract -> View обнулилась <<<<<<<<<<<<<<<<<<<<")
+            //  } else
+            //  Log.d(tag, "$viewContract -> View НЕ обнулилась <<<<<<<<<<<<<<<<<<<<")
+        }
     }
 
     override fun handleGitHubResponse(response: Response<SearchResponse?>?) {
