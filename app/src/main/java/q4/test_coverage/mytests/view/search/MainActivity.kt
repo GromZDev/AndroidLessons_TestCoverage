@@ -6,16 +6,20 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import q4.test_coverage.mytests.BuildConfig
 import q4.test_coverage.mytests.R
 import q4.test_coverage.mytests.databinding.ActivityMainBinding
 import q4.test_coverage.mytests.model.SearchResult
+import q4.test_coverage.mytests.presenter.RepositoryContract
 import q4.test_coverage.mytests.presenter.search.PresenterSearchContract
 import q4.test_coverage.mytests.presenter.search.SearchPresenter
+import q4.test_coverage.mytests.repository.FakeGitHubRepository
 import q4.test_coverage.mytests.repository.GitHubApi
 import q4.test_coverage.mytests.repository.GitHubRepository
 import q4.test_coverage.mytests.view.details.DetailsActivity
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 class MainActivity : AppCompatActivity(), ViewSearchContract {
 
@@ -84,9 +88,14 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
         })
     }
 
-    private fun createRepository(): GitHubRepository {
-        return GitHubRepository(createRetrofit().create(GitHubApi::class.java))
+    private fun createRepository(): RepositoryContract {
+        return if (BuildConfig.TYPE == FAKE) {
+            FakeGitHubRepository()
+        } else {
+            GitHubRepository(createRetrofit().create(GitHubApi::class.java))
+        }
     }
+
 
     private fun createRetrofit(): Retrofit {
         return Retrofit.Builder()
@@ -99,9 +108,19 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
         searchResults: List<SearchResult>,
         totalCount: Int
     ) {
+        with(binding) {
+            totalCountTextView.visibility = View.VISIBLE
+            totalCountTextView.text =
+                String.format(
+                    Locale.getDefault(), getString(R.string.results_count),
+                    totalCount
+                )
+        }
         this.totalCount = totalCount
         adapter.updateResults(searchResults)
+
     }
+
 
     override fun displayError() {
         Toast.makeText(this, getString(R.string.undefined_error), Toast.LENGTH_SHORT).show()
@@ -121,5 +140,6 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
 
     companion object {
         const val BASE_URL = "https://api.github.com"
+        const val FAKE = "FAKE"
     }
 }

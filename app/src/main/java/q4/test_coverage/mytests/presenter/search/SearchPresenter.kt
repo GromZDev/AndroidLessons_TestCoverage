@@ -1,8 +1,8 @@
 package q4.test_coverage.mytests.presenter.search
 
 import q4.test_coverage.mytests.model.SearchResponse
-import q4.test_coverage.mytests.repository.GitHubRepository
-import q4.test_coverage.mytests.repository.GitHubRepository.GitHubRepositoryCallback
+import q4.test_coverage.mytests.presenter.RepositoryContract
+import q4.test_coverage.mytests.repository.RepositoryCallback
 import q4.test_coverage.mytests.view.ViewContract
 import q4.test_coverage.mytests.view.search.ViewSearchContract
 import retrofit2.Response
@@ -16,8 +16,8 @@ import retrofit2.Response
  */
 
 internal class SearchPresenter internal constructor(
-    private val repository: GitHubRepository
-) : PresenterSearchContract, GitHubRepositoryCallback {
+    private val repository: RepositoryContract
+) : PresenterSearchContract, RepositoryCallback {
 
     private val tag = "myLogs"
 
