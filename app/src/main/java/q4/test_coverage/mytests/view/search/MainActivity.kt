@@ -6,14 +6,12 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import q4.test_coverage.mytests.BuildConfig
 import q4.test_coverage.mytests.R
 import q4.test_coverage.mytests.databinding.ActivityMainBinding
 import q4.test_coverage.mytests.model.SearchResult
 import q4.test_coverage.mytests.presenter.RepositoryContract
 import q4.test_coverage.mytests.presenter.search.PresenterSearchContract
 import q4.test_coverage.mytests.presenter.search.SearchPresenter
-import q4.test_coverage.mytests.repository.FakeGitHubRepository
 import q4.test_coverage.mytests.repository.GitHubApi
 import q4.test_coverage.mytests.repository.GitHubRepository
 import q4.test_coverage.mytests.view.details.DetailsActivity
@@ -88,12 +86,10 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
         })
     }
 
+    /** Избавился от BuildConfig.TYPE == FAKE. Теперь файл GitHubRepository
+     *  берётся в зависимости от сборки */
     private fun createRepository(): RepositoryContract {
-        return if (BuildConfig.TYPE == FAKE) {
-            FakeGitHubRepository()
-        } else {
-            GitHubRepository(createRetrofit().create(GitHubApi::class.java))
-        }
+        return GitHubRepository(createRetrofit().create(GitHubApi::class.java))
     }
 
 
