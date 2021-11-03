@@ -67,23 +67,30 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
     }
 
     private fun setQueryListener() {
-        binding.searchEditText.setOnEditorActionListener(OnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+        with(binding) {
+            searchEditText.setOnEditorActionListener(OnEditorActionListener { _, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    val query = binding.searchEditText.text.toString()
+                    if (query.isNotBlank()) {
+                        presenter.searchGitHub(query)
+                        return@OnEditorActionListener true
+                    } else {
+                        toast(getString(R.string.enter_search_word))
+                        return@OnEditorActionListener false
+                    }
+                }
+                false
+            })
+            searchButton.setOnClickListener {
                 val query = binding.searchEditText.text.toString()
                 if (query.isNotBlank()) {
                     presenter.searchGitHub(query)
-                    return@OnEditorActionListener true
                 } else {
-                    Toast.makeText(
-                        this@MainActivity,
-                        getString(R.string.enter_search_word),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@OnEditorActionListener false
+                    toast(getString(R.string.enter_search_word))
                 }
             }
-            false
-        })
+        }
+
     }
 
     /** Избавился от BuildConfig.TYPE == FAKE. Теперь файл GitHubRepository
@@ -137,5 +144,9 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
     companion object {
         const val BASE_URL = "https://api.github.com"
         const val FAKE = "FAKE"
+    }
+
+    private fun toast(text: String) {
+        Toast.makeText(this@MainActivity, text, Toast.LENGTH_SHORT).show()
     }
 }
