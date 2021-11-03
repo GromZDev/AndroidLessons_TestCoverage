@@ -1,4 +1,4 @@
-package q4.test_coverage.mytests
+package q4.test_coverage.mytests.espresso
 
 import android.view.View
 import android.widget.Button
@@ -18,6 +18,8 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import q4.test_coverage.mytests.BuildConfig
+import q4.test_coverage.mytests.R
 import q4.test_coverage.mytests.view.details.DetailsActivity
 import q4.test_coverage.mytests.view.search.MainActivity
 
@@ -41,7 +43,7 @@ class MainActivityEspressoTest {
             onView(withId(R.id.totalCountTextView)).check(matches(withText("Number of results: 42")))
         } else {
             onView(isRoot()).perform(delay())
-            onView(withId(R.id.totalCountTextView)).check(matches(withText("Number of results: 2654")))
+            onView(withId(R.id.totalCountTextView)).check(matches(withText("Number of results: 2655")))
         }
     }
 

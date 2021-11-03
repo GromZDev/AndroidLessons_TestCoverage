@@ -1,4 +1,4 @@
-package q4.test_coverage.mytests
+package q4.test_coverage.mytests.espresso
 
 import android.widget.TextView
 import androidx.lifecycle.Lifecycle
@@ -13,6 +13,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import q4.test_coverage.mytests.R
 import q4.test_coverage.mytests.view.details.DetailsActivity
 
 @RunWith(AndroidJUnit4::class)
