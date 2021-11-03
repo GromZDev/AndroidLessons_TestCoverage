@@ -10,6 +10,7 @@ import androidx.test.uiautomator.UiObject
 import androidx.test.uiautomator.UiScrollable
 import androidx.test.uiautomator.UiSelector
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -20,11 +21,45 @@ class OpenYouTubeApp {
     private val uiDevice: UiDevice =
         UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
-    @Test
-    fun openYouTube() {
+    @Before
+    fun init() {
         uiDevice.pressBack()
         uiDevice.pressHome()
+    }
 
+    @Test
+    fun openYouTube() {
+
+        val appViews = openApp()
+
+        val text = setText(appViews)
+
+        search(text)
+
+    }
+
+    private fun search(text: String) {
+        val appSearchItem: UiObject = uiDevice.findObject(
+            UiSelector().className("android.widget.EditText")
+        )
+        appSearchItem.clearTextField()
+        appSearchItem.text = text
+
+        uiDevice.pressEnter()
+    }
+
+    private fun setText(appViews: UiScrollable): String {
+        val searchTextField = appViews.getChildByDescription(
+            UiSelector()
+                .className(ImageView::class.java.name),
+            "Search"
+        )
+        searchTextField.click()
+
+        return "kotlin tutorial"
+    }
+
+    private fun openApp(): UiScrollable {
         uiDevice.swipe(500, 1500, 500, 0, 5)
         val appViews = UiScrollable(UiSelector().scrollable(false))
         val youTubeApp = appViews
@@ -39,24 +74,6 @@ class OpenYouTubeApp {
         val youTubeValidation =
             uiDevice.findObject(UiSelector().packageName("com.google.android.youtube"))
         Assert.assertTrue(youTubeValidation.exists())
-
-
-        val searchTextField = appViews.getChildByDescription(
-            UiSelector()
-                .className(ImageView::class.java.name),
-            "Search"
-        )
-        searchTextField.click()
-
-        val text = "kotlin tutorial"
-
-        val appSearchItem: UiObject = uiDevice.findObject(
-            UiSelector().className("android.widget.EditText")
-        )
-        appSearchItem.clearTextField()
-        appSearchItem.text = text
-
-        uiDevice.pressEnter()
-
+        return appViews
     }
 }
