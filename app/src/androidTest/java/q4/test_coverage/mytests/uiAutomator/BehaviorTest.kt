@@ -3,9 +3,6 @@ package q4.test_coverage.mytests.uiAutomator
 import android.content.Context
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.Espresso
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
@@ -16,7 +13,6 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import q4.test_coverage.mytests.R
 
 @RunWith(AndroidJUnit4::class)
 @SdkSuppress(minSdkVersion = 18)
@@ -70,8 +66,11 @@ class BehaviorTest {
 
         editText.text = "UiAutomator" //Устанавливаем значение
 
-        Espresso.onView(ViewMatchers.withId(R.id.searchEditText)) //Отправляем запрос через Espresso
-            .perform(ViewActions.pressImeActionButton())
+        // Через uiDevice находим кнопку
+        val searchButton = uiDevice.findObject(By.res(packageName, "searchButton"))
+
+        searchButton.click() // Кликаем
+
         //Ожидаем конкретного события: появления текстового поля totalCountTextView.
         //Это будет означать, что сервер вернул ответ с какими-то данными, то есть запрос отработал.
         val changedText =
