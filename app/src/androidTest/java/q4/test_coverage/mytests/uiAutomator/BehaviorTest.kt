@@ -111,5 +111,36 @@ class BehaviorTest {
         Assert.assertEquals(changedText.text, "Number of results: 0")
     }
 
+    @Test
+    fun test_OpenDetailsScreen_andMakeSure_IsCorrectRepos() {
+
+        val editText = uiDevice.findObject(By.res(packageName, "searchEditText"))
+
+        editText.text = "founders edition"
+
+        val searchButton = uiDevice.findObject(By.res(packageName, "searchButton"))
+
+        searchButton.click()
+
+        val receivedCountRepos = uiDevice.wait(
+            Until.findObject(By.res(packageName, "totalCountTextView")),
+            TIMEOUT
+        )
+
+        val memory = receivedCountRepos.text.toString()
+
+        val toDetails = uiDevice.findObject(
+            By.res(packageName, "toDetailsActivityButton")
+        )
+
+        toDetails.click()
+
+        val changedText = uiDevice.wait(
+            Until.findObject(By.res(packageName, "totalCountTextView")),
+            TIMEOUT
+        )
+
+        Assert.assertEquals(changedText.text, memory)
+    }
 
 }
