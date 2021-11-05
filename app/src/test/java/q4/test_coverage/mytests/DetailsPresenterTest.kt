@@ -45,7 +45,7 @@ class DetailsPresenterTest {
         presenter.onIncrement()
         scenario.onActivity {
             val totalCountTextView = it.findViewById<TextView>(R.id.totalCountTextView)
-            assertEquals("Number of results: 56", totalCountTextView.text)
+            assertEquals(NUMBER_OF_RESULTS+ "56", totalCountTextView.text)
         }
     }
 
@@ -54,7 +54,7 @@ class DetailsPresenterTest {
         presenter.onIncrement()
         scenario.onActivity {
             val totalCountTextView = it.findViewById<TextView>(R.id.totalCountTextView)
-            assertEquals("Number of results: 1", totalCountTextView.text)
+            assertEquals(TEST_NUMBER_OF_RESULTS_PLUS_1, totalCountTextView.text)
         }
     }
 
@@ -63,7 +63,7 @@ class DetailsPresenterTest {
         presenter.onDecrement()
         scenario.onActivity {
             val totalCountTextView = it.findViewById<TextView>(R.id.totalCountTextView)
-            assertEquals("Number of results: -1", totalCountTextView.text)
+            assertEquals(TEST_NUMBER_OF_RESULTS_MINUS_1, totalCountTextView.text)
         }
     }
 }
