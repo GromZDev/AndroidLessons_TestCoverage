@@ -14,10 +14,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import q4.test_coverage.mytests.*
-import q4.test_coverage.mytests.SEARCH_BUTTON
-import q4.test_coverage.mytests.SEARCH_EDIT_TEXT
-import q4.test_coverage.mytests.TEST_NUMBER_OF_RESULTS_ZERO
-import q4.test_coverage.mytests.ZERO_VALUE
 
 
 @RunWith(AndroidJUnit4::class)
@@ -35,6 +31,8 @@ class BehaviorTest {
     //Путь к классам нашего приложения, которые мы будем тестировать
     private val packageName = context.packageName
 
+    private val sharedTestData = SharedTestData()
+
     @Before
     fun setup() {
         /** Для начала сворачиваем все приложения, если у нас что-то запущено */
@@ -48,10 +46,6 @@ class BehaviorTest {
         context.startActivity(intent)
         //Ждем, когда приложение откроется на смартфоне чтобы начать тестировать его элементы
         uiDevice.wait(Until.hasObject(By.pkg(packageName).depth(ZERO_VALUE)), TIMEOUT)
-    }
-
-    companion object {
-        private const val TIMEOUT = 5000L
     }
 
     /** Убеждаемся, что приложение открыто. Для этого достаточно найти
@@ -80,10 +74,8 @@ class BehaviorTest {
         //Ожидаем конкретного события: появления текстового поля totalCountTextView.
         //Это будет означать, что сервер вернул ответ с какими-то данными, то есть запрос отработал.
         val changedText =
-            uiDevice.wait(
-                Until.findObject(By.res(packageName, TOTAL_COUNT_TEXTVIEW)),
-                TIMEOUT
-            )
+            sharedTestData.findObjectByRes(uiDevice, packageName, TOTAL_COUNT_TEXTVIEW)
+
         //Убеждаемся, что сервер вернул корректный результат. Обратите внимание, что количество
         //результатов может варьироваться во времени, потому что количество репозиториев
         // постоянно меняется.
@@ -97,10 +89,8 @@ class BehaviorTest {
         openDetailsScreen()
 
         val changedText =
-            uiDevice.wait(
-                Until.findObject(By.res(packageName, TOTAL_COUNT_TEXTVIEW)),
-                TIMEOUT
-            )
+            sharedTestData.findObjectByRes(uiDevice, packageName, TOTAL_COUNT_TEXTVIEW)
+
 
         Assert.assertEquals(changedText.text, TEST_NUMBER_OF_RESULTS_ZERO)
     }
@@ -116,19 +106,15 @@ class BehaviorTest {
 
         searchButton.click()
 
-        val receivedCountRepos = uiDevice.wait(
-            Until.findObject(By.res(packageName, TOTAL_COUNT_TEXTVIEW)),
-            TIMEOUT
-        )
+        val receivedCountRepos =
+            sharedTestData.findObjectByRes(uiDevice, packageName, TOTAL_COUNT_TEXTVIEW)
 
         val memory = receivedCountRepos.text.toString()
 
         openDetailsScreen()
 
-        val changedText = uiDevice.wait(
-            Until.findObject(By.res(packageName, TOTAL_COUNT_TEXTVIEW)),
-            TIMEOUT
-        )
+        val changedText =
+            sharedTestData.findObjectByRes(uiDevice, packageName, TOTAL_COUNT_TEXTVIEW)
 
         Assert.assertEquals(changedText.text, memory)
     }
@@ -145,11 +131,9 @@ class BehaviorTest {
         searchButton.click()
 
         val changedText =
-            uiDevice.wait(
-                Until.findObject(By.res(packageName, TOTAL_COUNT_TEXTVIEW)),
-                TIMEOUT
-            )
-        Assert.assertNotEquals(changedText.text.toString(), NUMBER_OF_RESULTS + "710")
+            sharedTestData.findObjectByRes(uiDevice, packageName, TOTAL_COUNT_TEXTVIEW)
+
+        Assert.assertNotEquals(changedText.text, NUMBER_OF_RESULTS + "710")
     }
 
     @Test
@@ -157,10 +141,8 @@ class BehaviorTest {
         openDetailsScreen()
 
         val buttonIncrement =
-            uiDevice.wait(
-                Until.findObject(By.res(packageName, INCREMENT_BUTTON)),
-                TIMEOUT
-            )
+            sharedTestData.findObjectByRes(uiDevice, packageName, INCREMENT_BUTTON)
+
         Assert.assertTrue(buttonIncrement.isClickable)
         Assert.assertTrue(buttonIncrement.isEnabled)
     }
@@ -170,10 +152,8 @@ class BehaviorTest {
         openDetailsScreen()
 
         val buttonDecrement =
-            uiDevice.wait(
-                Until.findObject(By.res(packageName, "decrementButton")),
-                TIMEOUT
-            )
+            sharedTestData.findObjectByRes(uiDevice, packageName, DECREMENT_BUTTON)
+
         Assert.assertTrue(buttonDecrement.isClickable)
         Assert.assertTrue(buttonDecrement.isEnabled)
     }
@@ -183,10 +163,7 @@ class BehaviorTest {
         openDetailsScreen()
 
         val buttonIncrement =
-            uiDevice.wait(
-                Until.findObject(By.res(packageName, INCREMENT_BUTTON)),
-                TIMEOUT
-            )
+            sharedTestData.findObjectByRes(uiDevice, packageName, INCREMENT_BUTTON)
 
         val textView = uiDevice.findObject(By.res(packageName, TOTAL_COUNT_TEXTVIEW))
         textView.text = "1"
@@ -201,10 +178,7 @@ class BehaviorTest {
         openDetailsScreen()
 
         val buttonDecrement =
-            uiDevice.wait(
-                Until.findObject(By.res(packageName, "decrementButton")),
-                TIMEOUT
-            )
+            sharedTestData.findObjectByRes(uiDevice, packageName, DECREMENT_BUTTON)
 
         val textView = uiDevice.findObject(By.res(packageName, TOTAL_COUNT_TEXTVIEW))
         textView.text = "1"
@@ -219,10 +193,8 @@ class BehaviorTest {
         openDetailsScreen()
 
         val totalCountTextView =
-            uiDevice.wait(
-                Until.findObject(By.res(packageName, TOTAL_COUNT_TEXTVIEW)),
-                TIMEOUT
-            )
+            sharedTestData.findObjectByRes(uiDevice, packageName, TOTAL_COUNT_TEXTVIEW)
+
         totalCountTextView.visibleBounds
         Assert.assertTrue(totalCountTextView.isEnabled)
     }
@@ -232,10 +204,7 @@ class BehaviorTest {
         openDetailsScreen()
 
         val totalCountTextView =
-            uiDevice.wait(
-                Until.findObject(By.res(packageName, TOTAL_COUNT_TEXTVIEW)),
-                TIMEOUT
-            )
+            sharedTestData.findObjectByRes(uiDevice, packageName, TOTAL_COUNT_TEXTVIEW)
 
         Assert.assertNotNull(totalCountTextView)
     }
