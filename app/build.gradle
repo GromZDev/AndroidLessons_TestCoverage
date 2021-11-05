@@ -114,4 +114,7 @@ dependencies {
     // for UiAutomator
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
 
+    // for Record Espresso tests
+    androidTestImplementation 'androidx.test:rules:1.4.1-alpha03'
+
 }

@@ -18,6 +18,7 @@ internal const val INCREMENT_BUTTON = "incrementButton"
 internal const val SOME_QUERY_TEXT = "some query"
 internal const val TIMEOUT = 5000L
 internal const val DECREMENT_BUTTON = "decrementButton"
+internal const val FOUNDERS_EDITION = "founders edition"
 
 internal class SharedTestData {
 
