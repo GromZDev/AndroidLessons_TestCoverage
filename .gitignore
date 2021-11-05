@@ -24,3 +24,4 @@ gradle.xml
 vcs.xml
 /.idea/modules/jarRepositories.xml
 apikey.properties
+google-services.json

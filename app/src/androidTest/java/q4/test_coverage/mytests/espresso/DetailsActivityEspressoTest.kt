@@ -14,6 +14,9 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import q4.test_coverage.mytests.R
+import q4.test_coverage.mytests.TEST_NUMBER_OF_RESULTS_MINUS_1
+import q4.test_coverage.mytests.TEST_NUMBER_OF_RESULTS_PLUS_1
+import q4.test_coverage.mytests.TEST_NUMBER_OF_RESULTS_ZERO
 import q4.test_coverage.mytests.view.details.DetailsActivity
 
 @RunWith(AndroidJUnit4::class)
@@ -48,7 +51,7 @@ class DetailsActivityEspressoTest {
 
     @Test
     fun activityTextView_HasText() {
-        val assertion = matches(withText("Number of results: 0"))
+        val assertion = matches(withText(TEST_NUMBER_OF_RESULTS_ZERO))
         onView(withId(R.id.totalCountTextView)).check(assertion)
     }
 
@@ -71,13 +74,14 @@ class DetailsActivityEspressoTest {
     @Test
     fun activityButtonIncrement_IsWorking() {
         onView(withId(R.id.incrementButton)).perform(click())
-        onView(withId(R.id.totalCountTextView)).check(matches(withText("Number of results: 1")))
+        onView(withId(R.id.totalCountTextView)).check(matches(withText(TEST_NUMBER_OF_RESULTS_PLUS_1)))
     }
 
     @Test
     fun activityButtonDecrement_IsWorking() {
         onView(withId(R.id.decrementButton)).perform(click())
-        onView(withId(R.id.totalCountTextView)).check(matches(withText("Number of results: -1")))
+        onView(withId(R.id.totalCountTextView)).check(matches(withText(
+            TEST_NUMBER_OF_RESULTS_MINUS_1)))
     }
 
     @After

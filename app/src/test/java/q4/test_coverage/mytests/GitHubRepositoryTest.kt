@@ -1,9 +1,5 @@
 package q4.test_coverage.mytests
 
-import q4.test_coverage.mytests.model.SearchResponse
-import q4.test_coverage.mytests.repository.GitHubApi
-import q4.test_coverage.mytests.repository.GitHubRepository
-import q4.test_coverage.mytests.repository.GitHubRepository.GitHubRepositoryCallback
 import okhttp3.Request
 import okio.Timeout
 import org.junit.Before
@@ -11,6 +7,10 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
+import q4.test_coverage.mytests.model.SearchResponse
+import q4.test_coverage.mytests.repository.GitHubApi
+import q4.test_coverage.mytests.repository.GitHubRepository
+import q4.test_coverage.mytests.repository.RepositoryCallback
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,19 +30,17 @@ class GitHubRepositoryTest {
 
     @Test
     fun searchGithub_Test() {
-        val searchQuery = "some query"
         val call = mock(Call::class.java) as Call<SearchResponse?>
 
-        `when`(gitHubApi.searchGithub(searchQuery)).thenReturn(call)
-        repository.searchGithub(searchQuery, mock(GitHubRepositoryCallback::class.java))
-        verify(gitHubApi, times(1)).searchGithub(searchQuery)
+        `when`(gitHubApi.searchGithub(SOME_QUERY_TEXT)).thenReturn(call)
+        repository.searchGithub(SOME_QUERY_TEXT, mock(RepositoryCallback::class.java))
+        verify(gitHubApi, times(1)).searchGithub(SOME_QUERY_TEXT)
     }
 
     @Test
     fun searchGithub_TestCallback() {
-        val searchQuery = "some query"
         val response = mock(Response::class.java) as Response<SearchResponse?>
-        val gitHubRepositoryCallBack = mock(GitHubRepositoryCallback::class.java)
+        val gitHubRepositoryCallBack = mock(RepositoryCallback::class.java)
 
         val call = object : Call<SearchResponse?> {
             override fun enqueue(callback: Callback<SearchResponse?>) {
@@ -78,8 +76,8 @@ class GitHubRepositoryTest {
             }
         }
 
-        `when`(gitHubApi.searchGithub(searchQuery)).thenReturn(call)
-        repository.searchGithub(searchQuery, gitHubRepositoryCallBack)
+        `when`(gitHubApi.searchGithub(SOME_QUERY_TEXT)).thenReturn(call)
+        repository.searchGithub(SOME_QUERY_TEXT, gitHubRepositoryCallBack)
 
         verify(gitHubRepositoryCallBack, times(1)).handleGitHubResponse(response)
         verify(gitHubRepositoryCallBack, times(1)).handleGitHubError()
@@ -87,13 +85,12 @@ class GitHubRepositoryTest {
 
     @Test
     fun searchGithub_TestCallback_WithMock() {
-        val searchQuery = "some query"
         val call = mock(Call::class.java) as Call<SearchResponse?>
         val callBack = mock(Callback::class.java) as Callback<SearchResponse?>
-        val gitHubRepositoryCallBack = mock(GitHubRepositoryCallback::class.java)
+        val gitHubRepositoryCallBack = mock(RepositoryCallback::class.java)
         val response = mock(Response::class.java) as Response<SearchResponse?>
 
-        `when`(gitHubApi.searchGithub(searchQuery)).thenReturn(call)
+        `when`(gitHubApi.searchGithub(SOME_QUERY_TEXT)).thenReturn(call)
         `when`(call.enqueue(callBack)).then {
             callBack.onResponse(any(), any())
         }
@@ -101,7 +98,7 @@ class GitHubRepositoryTest {
             gitHubRepositoryCallBack.handleGitHubResponse(response)
         }
 
-        repository.searchGithub(searchQuery, gitHubRepositoryCallBack)
+        repository.searchGithub(SOME_QUERY_TEXT, gitHubRepositoryCallBack)
 
         verify(gitHubRepositoryCallBack, times(1)).handleGitHubResponse(response)
     }

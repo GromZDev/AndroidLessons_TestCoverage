@@ -8,6 +8,15 @@ android {
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
+    sourceSets {
+        androidTest {
+            java.srcDirs += "src/sharedTestData/java"
+        }
+        test {
+            java.srcDirs += "src/sharedTestData/java"
+        }
+    }
+
     defaultConfig {
         applicationId "q4.test_coverage.mytests"
         minSdkVersion 25
@@ -104,5 +113,8 @@ dependencies {
 
     // for UiAutomator
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+
+    // for Record Espresso tests
+    androidTestImplementation 'androidx.test:rules:1.4.1-alpha03'
 
 }
