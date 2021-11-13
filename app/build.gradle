@@ -6,21 +6,17 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "q4.test_coverage.mytests"
         minSdkVersion 25
-        targetSdkVersion 31
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildFeatures {
-        viewBinding = true
     }
 
     buildTypes {
@@ -49,11 +45,17 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.30"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.5.31"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
@@ -83,7 +85,7 @@ dependencies {
 
     // for Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
-    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'com.google.android.gms:play-services-maps:18.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     // for Mockito
@@ -94,5 +96,26 @@ dependencies {
         exclude group: 'org.jetbrains.kotlin'
         exclude group: 'org.mockito'
     }
+
+    // for Robolectric
+    testImplementation 'org.robolectric:robolectric:4.5.1'
+    testImplementation 'androidx.test:core:1.4.0'
+    testImplementation 'androidx.test:runner:1.4.0'
+    testImplementation 'androidx.test.ext:junit:1.1.3'
+    testImplementation 'androidx.test.ext:truth:1.4.0'
+    testImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    testImplementation 'androidx.test.espresso:espresso-intents:3.4.0'
+
+    // for Espresso tests
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    // for UiAutomator
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+
+    // for Fragment tests
+    debugImplementation 'androidx.fragment:fragment-testing:1.3.6'
+
+    // for RecyclerView tests
+    debugImplementation 'androidx.test.espresso:espresso-contrib:3.4.0'
 
 }
