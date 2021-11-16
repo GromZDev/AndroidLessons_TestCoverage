@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">My Tests</string>
+    <string name="error_textview_stub">Error</string>
+    <string name="reload_button">Reload</string>
+    <string name="undefined_error">Undefined error</string>
+    <string name="empty_server_response_on_success">Response from server is
+empty</string>
+    <string name="button_search">Search</string>
+    <string name="search_hint">New word</string>
+    <string name="delete_description">X</string>
+    <string name="word_image">Word Image</string>
+    <string name="fab">FAB</string>
+    <string name="dialog_button_cancel">Отмена</string>
+    <string name="dialog_title_stub">Не знаю что это. Повторите ещё раз</string>
+    <string name="dialog_title_device_is_offline">Нет соединения с интернетом</string>
+    <string name="dialog_message_device_is_offline">Приложение без интернета не работает. Подключите.
+    </string>
+    <string name="image_stub">image</string>
+    <string name="menu_title_history">History</string>
 </resources>

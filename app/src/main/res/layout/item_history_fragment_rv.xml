@@ -1,0 +1,58 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/error_linear_layout"
+    style="@style/MyDictionaryRecyclerItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/item_layout_padding">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/item_history_image"
+        android:layout_width="@dimen/image_width"
+        android:layout_height="@dimen/image_height"
+        android:layout_marginStart="@dimen/image_margin_start"
+        android:contentDescription="@string/word_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ItemRounded"
+        app:strokeColor="@color/img_stroke_color"
+        app:strokeWidth="@dimen/image_stroke" />
+
+    <TextView
+        android:id="@+id/header_history_item"
+        style="@style/HeaderTextStyle"
+        android:layout_width="@dimen/tw_item_layout_width"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_history_image"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Header" />
+
+    <TextView
+        android:id="@+id/description_history_item"
+        style="@style/BaseTextStyle"
+        android:layout_width="@dimen/tw_item_layout_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/image_margin_start"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_history_image"
+        app:layout_constraintTop_toBottomOf="@+id/header_history_item"
+        tools:text="Description: Lorem ipsum dolor..." />
+
+    <TextView
+        android:id="@+id/transcription_history_item"
+        style="@style/BaseTextStyle"
+        android:layout_width="@dimen/tw_item_layout_width"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/image_margin_start"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/item_history_image"
+        app:layout_constraintTop_toBottomOf="@+id/description_history_item"
+        tools:text="transcription" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

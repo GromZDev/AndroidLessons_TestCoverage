@@ -21,7 +21,6 @@
     <color name="color_gray">#66000000</color>
     <color name="item_rv_bg">#606060</color>
     <color name="img_stroke_color">#FFA12D</color>
-    <color name="main_fragment_bg">#178177</color>
+    <color name="main_fragment_bg">#504A4A</color>
     <color name="color_white_transparent">#80FFFFFF</color>
-
 </resources>
